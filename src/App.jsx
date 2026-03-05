@@ -1,9 +1,11 @@
-import React from 'react'
-import Form from './form'
+import Header from './components/header'
+import Main from './components/main'
 
 export default function App() {
   return (
-    <div>
-    </div>
+    <>
+    <Header />
+    <Main />
+    </>
   )
 }
