@@ -1,5 +1,5 @@
 import React from 'react'
-import trollFaceIcon from "../public/trollFace.png"
+import trollFaceIcon from "../public/trollface.png"
 
 export default function Header() {
   return (
