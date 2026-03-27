@@ -1,7 +1,39 @@
 import "@testing-library/jest-dom/vitest";
-import { afterEach } from 'vitest'
+import { afterEach, beforeAll, afterAll } from 'vitest'
 import { cleanup } from "@testing-library/react";
+import { setupServer } from 'msw/node'
+import { http, HttpResponse } from 'msw'
 
+//Prepare data
+const memes = {
+    data : {
+        memes: [
+            {
+                url: 'http://i.imgflip.com/1c1uej.jpg',
+            }
+        ]
+    }
+}
+
+//Define handlers using MSW 
+export const restHandlers = [
+    http.get('http://api.imgflip.com/get_memes', () => {
+        return HttpResponse.json(memes)
+    })
+]
+
+//Set up server
+const server = setupServer(...restHandlers)
+
+//Establish requests interception layer before all tests
+beforeAll(() => server.listen({ onUnhandledRequest: 'error'}))
+
+//Clean up after all tests are done, preventing this
+// interception layer from affecting irrelevant tests
+afterAll(() => server.close())
+
+//Clean up handlers
 afterEach(() => {
-    cleanup();
-});
+    server.resetHandlers()
+    cleanup()
+})
