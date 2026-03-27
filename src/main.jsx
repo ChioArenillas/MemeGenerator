@@ -59,7 +59,7 @@ function handleChange(event){
                 <button onClick={getMemeImage}>Get a new meme image 🖼</button>
             </div>
             <div className="meme">
-                <img src={meme.imageURL} />
+                <img src={meme.imageURL} alt='meme image'/>
                 <span className="top">{meme.topText}</span>
                 <span className="bottom">{meme.bottomText}</span>
             </div>
